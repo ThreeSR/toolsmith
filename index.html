@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents">
+  <meta name="keywords" content="multimodal agents, tool generation, tool use, multimodal search, VLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ToolSmith: An Automatic Tool-Generation Framework<br>for Multimodal Search Agents</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Rui Sun<sup>&spades;</sup>,</span>
+            <span class="author-block">Junhua Huang<sup>&spades;</sup>,</span>
+            <span class="author-block">Luca Zancato<sup>&clubs;</sup>,</span>
+            <span class="author-block">Md Mofijul Islam<sup>&clubs;&dagger;</sup>,</span>
+            <span class="author-block">Kai-Wei Chang<sup>&spades;&dagger;</sup></span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>&spades;</sup>University of California, Los Angeles&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>&clubs;</sup>AWS GenAI</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>&dagger;</sup>Equal advising</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" style="pointer-events:none; opacity:0.55;">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper (Coming Soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" style="pointer-events:none; opacity:0.55;">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" style="pointer-events:none; opacity:0.55;">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (Coming Soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <img src="static/images/teaser.png" alt="ToolSmith teaser" style="max-width:82%;">
+      <h2 class="subtitle" style="margin-top:1em;">
+        Hand-crafted tool libraries are frozen at deployment. <b>ToolSmith</b> lets a multimodal search
+        agent grow its own tools from its failures: mined capability gaps become new, verified,
+        reusable Python tools that lift accuracy across 13 benchmarks.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent multimodal search agents use reasoning, vision, and live web search across many
+            turns to answer questions beyond parametric knowledge by orchestrating a small library of
+            hand-crafted search and visual tools. However, the library is laborious to create and
+            maintain, and frozen when new query types, evidence formats, and failure modes are
+            encountered in the wild. Human practitioners, by contrast, cope with insufficient tools by
+            fashioning new ones from familiar parts and reusing them across tasks. Inspired by this,
+            we propose <b>ToolSmith</b>, an automatic tool-generation framework that grows and reuses
+            modules on top of a lean base tool library. We evaluate ToolSmith on three in-domain
+            multimodal search benchmarks and ten out-of-domain benchmarks under a VLM-as-a-Judge
+            protocol. ToolSmith consistently improves over the base library across deployed agents of
+            varying scales, with larger backbones reaping greater gains, demonstrating the scalability
+            of the approach. Our code and data will be publicly available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Method</h2>
+        <img src="static/images/framework.png" alt="ToolSmith framework" style="max-width:100%;">
+        <div class="content has-text-justified" style="margin-top:1em;">
+          <p>
+            ToolSmith runs a four-phase pipeline on top of an eight-primitive base library.
+            <b>Phase 1 (Trajectory Mining)</b> clusters the agent's failed trajectories into
+            capability gaps. <b>Phase 2 (Reuse-or-Grow)</b> checks each gap against the current
+            catalog and escalates to generation only when no existing tool fits.
+            <b>Phase 3 (Tool Generation)</b> prompts a generator LLM to author the new tool as Python
+            source under structural and anti-hardcode constraints. <b>Phase 4 (Two-Gate
+            Verification)</b> admits a candidate only after a sandboxed execution check and an LLM
+            static code review. At inference, a lightweight retriever routes the top-K generated
+            tools to each query alongside the always-visible base primitives.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            Across <b>3 in-domain and 10 out-of-domain benchmarks</b>, tools generated by ToolSmith
+            (GPT-5 generator) consistently improve over an already strong base-tool agent:
+          </p>
+          <table class="table is-bordered is-striped is-fullwidth has-text-centered">
+            <thead><tr><th>Inference model</th><th>ID avg (base &rarr; +ToolSmith)</th><th>OOD avg (base &rarr; +ToolSmith)</th></tr></thead>
+            <tbody>
+              <tr><td>Qwen3-VL-8B</td><td>47.94 &rarr; <b>50.14</b> (+2.20)</td><td>26.57 &rarr; <b>27.90</b> (+1.33)</td></tr>
+              <tr><td>Qwen3-VL-32B</td><td>55.47 &rarr; <b>57.14</b> (+1.67)</td><td>31.27 &rarr; <b>34.25</b> (+2.98)</td></tr>
+              <tr><td>GPT-5</td><td>51.80 &rarr; <b>52.84</b> (+1.04)</td><td>39.80 &rarr; <b>42.20</b> (+2.40)</td></tr>
+            </tbody>
+          </table>
+          <p>
+            Gains appear in 36 of 39 backbone&times;benchmark cells. Ablations show the tool-generation
+            model should be as strong as possible, while the trajectory-mining model should match the
+            inference model; a cluster-count sweep exposes a quality&ndash;coverage trade-off.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Generated Tools in Action</h2>
+        <img src="static/images/case1.png" alt="Case study" style="max-width:88%; margin-bottom:1.5em;">
+        <img src="static/images/case2.png" alt="Case study" style="max-width:88%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{sun2026toolsmith,
+  title   = {ToolSmith: An Automatic Tool-Generation Framework for Multimodal Search Agents},
+  author  = {Sun, Rui and Huang, Junhua and Zancato, Luca and Islam, Md Mofijul and Chang, Kai-Wei},
+  journal = {arXiv preprint},
+  year    = {2026},
+  note    = {arXiv link coming soon}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Page adapted from the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>,
+            which is based on the <a href="https://nerfies.github.io/" target="_blank">Nerfies</a> project page.
+            Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0 License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
