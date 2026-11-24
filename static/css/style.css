@@ -440,3 +440,26 @@ footer a { color: var(--ink-2); }
   .reveal { opacity: 1; transform: none; }
   #sparks { display: none; }
 }
+
+/* ---------- research line (shared by the GENOME and ToolSmith pages) ---------- */
+.series { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: stretch; }
+.series .step { display: flex; flex-direction: column; gap: 8px; padding: 22px 24px; text-decoration: none; color: var(--ink); transition: transform .2s, border-color .2s; position: relative; }
+.series a.step:hover { transform: translateY(-2px); border-color: var(--ink-3); }
+.series .yr { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink-3); letter-spacing: .06em; }
+.series h3 { font-size: 24px; }
+.series .tag { font-family: var(--f-display); font-size: 15px; color: var(--ink-2); font-weight: 500; }
+.series p { color: var(--ink-2); font-size: 15px; margin: 2px 0 0; }
+.series .go { margin-top: auto; padding-top: 8px; font-weight: 600; font-size: 14.5px; color: var(--blue); }
+.series .here { position: absolute; top: 18px; right: 18px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-3); }
+.series .step.cur { border-color: color-mix(in srgb, var(--gold) 55%, transparent); box-shadow: 0 0 0 3px var(--gold-soft), var(--shadow); }
+.series .arrow { display: grid; place-items: center; color: var(--ink-3); font-size: 26px; }
+.series .g-genome { width: fit-content; background: linear-gradient(100deg, #025df8 0%, #7444c4 40%, #b82da3 72%, #9d1f33 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-theme="dark"] .series .g-genome { background-image: linear-gradient(100deg, #3d82ff 0%, #9466e6 40%, #d257c2 72%, #d4465f 100%); }
+.series .g-toolsmith .t { color: #2774ae; } .series .g-toolsmith .s { color: #e9bc70; }
+:root[data-theme="dark"] .series .g-toolsmith .t { color: #6aaee6; }
+.series-note { color: var(--ink-3); font-size: 14px; margin: 14px 2px 0; }
+@media (max-width: 860px) {
+  .series { grid-template-columns: 1fr; }
+  .series .arrow { transform: rotate(90deg); font-size: 22px; }
+}
+.series .lg-logo { width: 44px; height: 44px; object-fit: contain; position: absolute; right: 20px; bottom: 18px; opacity: .9; }
