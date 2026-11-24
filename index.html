@@ -30,6 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/css/style.css?v=3">
+  <link rel="stylesheet" href="static/css/video.css?v=1">
   <script>
     // dark by default; a stored choice (light or dark) wins
     try { var t = localStorage.getItem('ts-theme'); document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark'); } catch (e) {}
@@ -112,6 +113,19 @@
       <a class="btn sib" href="https://umass-embodied-agi.github.io/genome/" target="_blank" rel="noopener"><img src="https://umass-embodied-agi.github.io/genome/static/images/genome_logo_256.png" alt="" style="width:20px;height:20px;object-fit:contain">GENOME</a>
       <a class="btn sib" href="https://openvlharness.github.io/" target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><clipPath id="bmClipB"><rect x="10" y="10" width="12" height="12" rx="2.2"/></clipPath></defs><g clip-path="url(#bmClipB)"><rect x="10" y="10" width="12" height="3.05" fill="#2a1b5c"/><rect x="10" y="13" width="12" height="3.05" fill="#8a2f6f"/><rect x="10" y="16" width="12" height="3.05" fill="#d4552a"/><rect x="10" y="19" width="12" height="3.05" fill="#f1b33c"/></g><path d="M3 9.5V3h6.5M22.5 3H29v6.5M29 22.5V29h-6.5M9.5 29H3v-6.5" fill="none" stroke="#2653c1" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>OpenVLHarness</a>
     </div>
+
+    <figure class="hero-video">
+      <video id="heroVideo" autoplay muted loop playsinline controls preload="auto" poster="static/video/toolsmith_video_poster.jpg?v=1" aria-label="ToolSmith video (2:17)">
+        <source src="static/video/toolsmith_video.mp4?v=1" type="video/mp4">
+      </video>
+    </figure>
+    <script>
+      // respect reduced-motion settings: show the poster with controls instead of autoplaying
+      if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const v = document.getElementById("heroVideo");
+        v.removeAttribute("autoplay"); v.pause();
+      }
+    </script>
   </div>
 </header>
 

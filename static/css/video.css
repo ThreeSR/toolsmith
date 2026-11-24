@@ -1,0 +1,9 @@
+/* Project video at the top of the page (same treatment as openvlharness.github.io): full content width, 16:9,
+   autoplays muted and loops, with controls so visitors can unmute or scrub. Kept in its own file so a cached
+   style.css can never leave the video unstyled after a deploy. */
+.hero-video {
+  position: relative; max-width: 100%; margin: 30px auto 0; aspect-ratio: 16 / 9;
+  border-radius: var(--radius, 14px); overflow: hidden; background: #0b0d12;
+  border: 1px solid var(--line, #232831); box-shadow: var(--shadow, 0 10px 30px -14px rgba(0, 0, 0, 0.6));
+}
+.hero-video video { display: block; width: 100%; height: 100%; object-fit: contain; background: #0b0d12; }
